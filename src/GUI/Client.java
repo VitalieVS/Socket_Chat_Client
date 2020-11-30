@@ -1,8 +1,7 @@
 package GUI;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -28,7 +27,6 @@ public class Client extends JFrame {
                 try {
                     dout.writeUTF(msgout);
                     if (clientTextArea.getText().isEmpty()) {
-                        System.out.println("de aici am trimis");
                         clientTextArea.setText(
                                 clientTextArea.getText().trim() + msgout);
                     } else {
@@ -41,6 +39,13 @@ public class Client extends JFrame {
             }
         });
         clientMessaging();
+        clientSendButton.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                System.out.println("Key:");
+                super.keyPressed(e);
+            }
+        });
     }
 
     public void clientMessaging() {
@@ -74,4 +79,5 @@ public class Client extends JFrame {
         this.pack();
         this.setVisible(true);
     }
+
 }
