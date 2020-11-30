@@ -27,6 +27,14 @@ public class Client extends JFrame {
                 msgout = clientTextField.getText().trim();
                 try {
                     dout.writeUTF(msgout);
+                    if (clientTextArea.getText().isEmpty()) {
+                        System.out.println("de aici am trimis");
+                        clientTextArea.setText(
+                                clientTextArea.getText().trim() + msgout);
+                    } else {
+                        clientTextArea.setText(
+                                clientTextArea.getText().trim() + "\n" + msgout);
+                    }
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }
@@ -43,9 +51,14 @@ public class Client extends JFrame {
             String msgin = "";
             while (!msgin.equals("exit")) {
                 msgin = din.readUTF();
-
-                clientTextArea.setText(
-                        clientTextArea.getText().trim() + "\n Server:\t" + msgin);
+                if (clientTextArea.getText().isEmpty()) {
+                    clientTextArea.setText(
+                            clientTextArea.getText().trim() + "Server:" + msgin);
+                }
+                 else {
+                    clientTextArea.setText(
+                            clientTextArea.getText().trim() + "\nServer:" + msgin);
+                }
             }
         } catch (Exception e) {
             System.out.println("error:" + e);

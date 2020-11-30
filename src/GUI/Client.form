@@ -31,9 +31,13 @@
                   </grid>
                 </constraints>
                 <properties>
+                  <background color="-7985047"/>
+                  <columns value="0"/>
                   <editable value="false"/>
                   <font/>
+                  <foreground color="-15661822"/>
                   <lineWrap value="true"/>
+                  <wrapStyleWord value="true"/>
                 </properties>
               </component>
               <component id="c5b7c" class="javax.swing.JTextField" binding="clientTextField">
