@@ -1,5 +1,7 @@
 package GUI;
 
+import Log.Log;
+
 import javax.swing.*;
 import java.awt.event.*;
 import java.io.DataInputStream;
@@ -17,8 +19,11 @@ public class Client extends JFrame {
     static DataInputStream din;
     static DataOutputStream dout;
 
+    private Log chatLog;
+
     public Client() {
         initComponents();
+        chatLog = new Log();
         clientSendButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -33,9 +38,46 @@ public class Client extends JFrame {
                         clientTextArea.setText(
                                 clientTextArea.getText().trim() + "\n" + msgout);
                     }
+                    chatLog.writeLog("Client:", msgout);
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }
+            }
+        });
+        addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+                chatLog.openLog();
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                chatLog.closeLog();
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+
             }
         });
         clientMessaging();
@@ -64,6 +106,7 @@ public class Client extends JFrame {
                     clientTextArea.setText(
                             clientTextArea.getText().trim() + "\nServer:" + msgin);
                 }
+                chatLog.writeLog("Client:", msgin);
             }
         } catch (Exception e) {
             System.out.println("error:" + e);
